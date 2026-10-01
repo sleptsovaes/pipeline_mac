@@ -1,11 +1,10 @@
-cat > README.md <<'EOF'
 # Pipelined MAC: RTL-to-GDS Design-Space Exploration
 
 A parameterized signed multiply-accumulate (MAC) unit implemented in SystemVerilog and evaluated across **1-stage, 2-stage, and 3-stage elastic pipeline microarchitectures**.
 
 This project covers the complete digital IC design flow:
 
-**RTL → randomized verification → synthesis → floorplanning → placement → CTS → routing → post-route STA → GDS → automated Fmax exploration**
+**RTL - randomized verification - synthesis - floorplanning - placement - CTS - routing - post-route STA - GDS - automated Fmax exploration**
 
 The main objective is to study how pipeline depth affects:
 
@@ -787,32 +786,3 @@ Unlike the current 3-stage design, this would partition the actual dominant comb
 - Docker
 - Python
 - Matplotlib
-
----
-
-# Summary
-
-This project demonstrates a complete small-scale digital IC design workflow:
-
-```text
-microarchitecture
-      ↓
-RTL
-      ↓
-randomized verification
-      ↓
-synthesis
-      ↓
-physical implementation
-      ↓
-post-route STA
-      ↓
-GDS
-      ↓
-automated design-space exploration
-```
-
-The primary result is that the **2-stage MAC achieved the highest timing-closed frequency at 179.27 MHz**.
-
-At the same time, the experiment shows that deeper pipelining is not automatically beneficial: the 3-stage implementation increased latency and physical overhead without partitioning the dominant arithmetic path, resulting in a lower Fmax.
-EOF
