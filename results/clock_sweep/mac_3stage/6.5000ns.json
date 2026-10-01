@@ -1,0 +1,17 @@
+{
+  "design": "mac_3stage",
+  "variant": "3-stage",
+  "latency_cycles": 3,
+  "period_ns": 6.5,
+  "frequency_mhz": 153.84615384615384,
+  "wns_ns": 0.291118,
+  "route_slack_ns": -0.002,
+  "tns_ns": 0.0,
+  "area_um2": 18837.0,
+  "utilization_pct": 47.0,
+  "sequential_cells": 163.0,
+  "combinational_cells": 1230.0,
+  "power_w": 0.0279,
+  "flow_completed": true,
+  "timing_met": true
+}

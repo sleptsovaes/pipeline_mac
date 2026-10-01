@@ -1,0 +1,17 @@
+{
+  "design": "mac_2stage",
+  "variant": "2-stage",
+  "latency_cycles": 2,
+  "period_ns": 6.0,
+  "frequency_mhz": 166.66666666666666,
+  "wns_ns": 0.201393,
+  "route_slack_ns": -0.017,
+  "tns_ns": 0.0,
+  "area_um2": 17648.0,
+  "utilization_pct": 51.0,
+  "sequential_cells": 98.0,
+  "combinational_cells": 1138.0,
+  "power_w": 0.0161,
+  "flow_completed": true,
+  "timing_met": true
+}

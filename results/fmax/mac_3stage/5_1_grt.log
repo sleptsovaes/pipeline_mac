@@ -1,0 +1,506 @@
+OpenROAD unknown 
+Features included (+) or not (-): -GPU +GUI -Python
+This program is licensed under the BSD-3 license. See the LICENSE file for details.
+Components of this program may be licensed under more restrictive licenses which must be honored.
+[INFO ORD-0030] Using 16 thread(s).
+read_liberty /OpenROAD-flow-scripts/flow/platforms/sky130hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_db ./results/sky130hd/mac_3stage/base/4_cts.odb
+read_sdc ./results/sky130hd/mac_3stage/base/4_cts.sdc
+source /OpenROAD-flow-scripts/flow/platforms/sky130hd/setRC.tcl
+pin_access
+[INFO DRT-0149] Reading tech and libs.
+[WARNING DRT-0349] LEF58_ENCLOSURE with no CUTCLASS is not supported. Skipping for layer mcon
+[WARNING DRT-0349] LEF58_ENCLOSURE with no CUTCLASS is not supported. Skipping for layer mcon
+[WARNING DRT-0349] LEF58_ENCLOSURE with no CUTCLASS is not supported. Skipping for layer via
+[WARNING DRT-0349] LEF58_ENCLOSURE with no CUTCLASS is not supported. Skipping for layer via
+[WARNING DRT-0349] LEF58_ENCLOSURE with no CUTCLASS is not supported. Skipping for layer via2
+[WARNING DRT-0349] LEF58_ENCLOSURE with no CUTCLASS is not supported. Skipping for layer via2
+[WARNING DRT-0349] LEF58_ENCLOSURE with no CUTCLASS is not supported. Skipping for layer via3
+[WARNING DRT-0349] LEF58_ENCLOSURE with no CUTCLASS is not supported. Skipping for layer via3
+[WARNING DRT-0349] LEF58_ENCLOSURE with no CUTCLASS is not supported. Skipping for layer via4
+[WARNING DRT-0349] LEF58_ENCLOSURE with no CUTCLASS is not supported. Skipping for layer via4
+
+Units:                1000
+Number of layers:     13
+Number of macros:     441
+Number of vias:       29
+Number of viarulegen: 25
+
+[INFO DRT-0150] Reading design.
+
+Design:                   mac_3stage
+Die area:                 ( 0 0 ) ( 204660 204660 )
+Number of track patterns: 12
+Number of DEF vias:       0
+Number of components:     2180
+Number of terminals:      104
+Number of snets:          2
+Number of nets:           2084
+
+[INFO DRT-0167] List of default vias:
+  Layer via
+    default via: M1M2_PR
+  Layer via2
+    default via: M2M3_PR
+  Layer via3
+    default via: M3M4_PR
+  Layer via4
+    default via: M4M5_PR
+[INFO DRT-0162] Library cell analysis.
+[INFO DRT-0163] Instance analysis.
+[INFO DRT-0164] Number of unique instances = 127.
+[INFO DRT-0168] Init region query.
+[INFO DRT-0024]   Complete FR_MASTERSLICE.
+[INFO DRT-0024]   Complete Fr_VIA.
+[INFO DRT-0024]   Complete li1.
+[INFO DRT-0024]   Complete mcon.
+[INFO DRT-0024]   Complete met1.
+[INFO DRT-0024]   Complete via.
+[INFO DRT-0024]   Complete met2.
+[INFO DRT-0024]   Complete via2.
+[INFO DRT-0024]   Complete met3.
+[INFO DRT-0024]   Complete via3.
+[INFO DRT-0024]   Complete met4.
+[INFO DRT-0024]   Complete via4.
+[INFO DRT-0024]   Complete met5.
+[INFO DRT-0033] FR_MASTERSLICE shape region query size = 0.
+[INFO DRT-0033] FR_VIA shape region query size = 0.
+[INFO DRT-0033] li1 shape region query size = 59002.
+[INFO DRT-0033] mcon shape region query size = 35113.
+[INFO DRT-0033] met1 shape region query size = 12250.
+[INFO DRT-0033] via shape region query size = 2590.
+[INFO DRT-0033] met2 shape region query size = 1636.
+[INFO DRT-0033] via2 shape region query size = 2072.
+[INFO DRT-0033] met3 shape region query size = 1574.
+[INFO DRT-0033] via3 shape region query size = 2072.
+[INFO DRT-0033] met4 shape region query size = 630.
+[INFO DRT-0033] via4 shape region query size = 98.
+[INFO DRT-0033] met5 shape region query size = 126.
+[INFO DRT-0165] Start pin access.
+[INFO DRT-0076]   Complete 1000 pins.
+[INFO DRT-0078]   Complete 1001 pins.
+[INFO DRT-0079]   Complete 100 unique inst patterns.
+[INFO DRT-0081]   Complete 127 unique inst patterns.
+[INFO DRT-0084]   Complete 1134 groups.
+#scanned instances     = 2180
+#unique  instances     = 127
+#stdCellGenAp          = 5094
+#stdCellValidPlanarAp  = 68
+#stdCellValidViaAp     = 2945
+#stdCellPinNoAp        = 10
+#stdCellPinCnt         = 5872
+#instTermValidViaApCnt = 0
+#macroGenAp            = 0
+#macroValidPlanarAp    = 0
+#macroValidViaAp       = 0
+#macroNoAp             = 0
+[INFO DRT-0166] Complete pin access.
+[INFO DRT-0267] cpu time = 00:02:15, elapsed time = 00:00:15, memory = 123.88 (MB), peak = 123.88 (MB)
+Took 17 seconds: pin_access
+global_route -congestion_report_file ./reports/sky130hd/mac_3stage/base/congestion.rpt -congestion_iterations 30 -congestion_report_iter_step 5 -verbose
+[INFO GRT-0020] Min routing layer: met1
+[INFO GRT-0021] Max routing layer: met5
+[INFO GRT-0022] Global adjustment: 0%
+[INFO GRT-0023] Grid origin: (0, 0)
+[INFO GRT-0088] Layer li1     Track-Pitch = 0.4600  line-2-Via Pitch: 0.3400
+[INFO GRT-0088] Layer met1    Track-Pitch = 0.3400  line-2-Via Pitch: 0.3400
+[INFO GRT-0088] Layer met2    Track-Pitch = 0.4600  line-2-Via Pitch: 0.3500
+[INFO GRT-0088] Layer met3    Track-Pitch = 0.6800  line-2-Via Pitch: 0.6150
+[INFO GRT-0088] Layer met4    Track-Pitch = 0.9200  line-2-Via Pitch: 1.0400
+[INFO GRT-0088] Layer met5    Track-Pitch = 3.4000  line-2-Via Pitch: 3.1100
+[INFO GRT-0003] Macros: 0
+[INFO GRT-0004] Blockages: 3602
+[INFO GRT-0019] Found 18 clock nets.
+[INFO GRT-0001] Minimum degree: 2
+[INFO GRT-0002] Maximum degree: 51
+
+[INFO GRT-0053] Routing resources analysis:
+          Routing      Original      Derated      Resource
+Layer     Direction    Resources     Resources    Reduction (%)
+---------------------------------------------------------------
+li1        Vertical            0             0          0.00%
+met1       Horizontal      12440          9625          22.63%
+met2       Vertical        10780          8288          23.12%
+met3       Horizontal       8022          6286          21.64%
+met4       Vertical         5264          3752          28.72%
+met5       Horizontal       1148           840          26.83%
+---------------------------------------------------------------
+
+[INFO GRT-0197] Via related to pin nodes: 9472
+[INFO GRT-0198] Via related Steiner nodes: 121
+[INFO GRT-0199] Via filling finished.
+[INFO GRT-0111] Final number of vias: 11666
+[INFO GRT-0112] Final usage 3D: 40350
+
+[INFO GRT-0096] Final congestion report:
+Layer         Resource        Demand        Usage (%)    Max H / Max V / Total Congestion
+---------------------------------------------------------------------------------------
+li1                  0             0            0.00%             0 /  0 /  0
+met1              9625          2373           24.65%             0 /  0 /  0
+met2              8288          2714           32.75%             0 /  0 /  0
+met3              6286           133            2.12%             0 /  0 /  0
+met4              3752           132            3.52%             0 /  0 /  0
+met5               840             0            0.00%             0 /  0 /  0
+---------------------------------------------------------------------------------------
+Total            28791          5352           18.59%             0 /  0 /  0
+
+[INFO GRT-0018] Total wirelength: 60927 um
+[INFO GRT-0014] Routed nets: 2084
+[INFO GRT-0303] Global routing runtime = 00:00:00
+estimate_parasitics -global_routing
+Perform buffer insertion and gate resizing...
+repair_design -verbose
+Iteration |   Area    | Resized | Buffers | Nets repaired | Remaining
+---------------------------------------------------------------------
+        0 |     +0.0% |       0 |       0 |             0 |      2099
+       10 |     +0.0% |       0 |       0 |             0 |      2089
+       20 |     +0.0% |       0 |       0 |             0 |      2079
+       30 |     +0.0% |       0 |       0 |             0 |      2069
+       40 |     +0.0% |       0 |       0 |             0 |      2059
+       50 |     +0.0% |       0 |       0 |             0 |      2049
+       60 |     +0.0% |       0 |       0 |             0 |      2039
+       70 |     +0.0% |       0 |       0 |             0 |      2029
+       80 |     +0.0% |       0 |       0 |             0 |      2019
+       90 |     +0.0% |       0 |       0 |             0 |      2009
+      100 |     +0.0% |       0 |       0 |             0 |      1999
+      110 |     +0.0% |       0 |       0 |             0 |      1989
+      120 |     +0.0% |       0 |       0 |             0 |      1979
+      130 |     +0.0% |       0 |       0 |             0 |      1969
+      140 |     +0.0% |       0 |       0 |             0 |      1959
+      150 |     +0.0% |       0 |       0 |             0 |      1949
+      160 |     +0.0% |       0 |       0 |             0 |      1939
+      170 |     +0.0% |       0 |       0 |             0 |      1929
+      180 |     +0.0% |       0 |       0 |             0 |      1919
+      190 |     +0.0% |       0 |       0 |             0 |      1909
+      200 |     +0.0% |       0 |       0 |             0 |      1899
+      210 |     +0.0% |       0 |       0 |             0 |      1889
+      220 |     +0.0% |       0 |       0 |             0 |      1879
+      230 |     +0.0% |       0 |       0 |             0 |      1869
+      240 |     +0.0% |       0 |       0 |             0 |      1859
+      250 |     +0.0% |       0 |       0 |             0 |      1849
+      260 |     +0.0% |       0 |       0 |             0 |      1839
+      270 |     +0.0% |       0 |       0 |             0 |      1829
+      280 |     +0.0% |       0 |       0 |             0 |      1819
+      290 |     +0.0% |       0 |       0 |             0 |      1809
+      300 |     +0.0% |       0 |       0 |             0 |      1799
+      310 |     +0.0% |       0 |       0 |             0 |      1789
+      320 |     +0.0% |       0 |       0 |             0 |      1779
+      330 |     +0.0% |       0 |       0 |             0 |      1769
+      340 |     +0.0% |       0 |       0 |             0 |      1759
+      350 |     +0.0% |       0 |       0 |             0 |      1749
+      360 |     +0.0% |       0 |       0 |             0 |      1739
+      370 |     +0.0% |       0 |       0 |             0 |      1729
+      380 |     +0.0% |       0 |       0 |             0 |      1719
+      390 |     +0.0% |       0 |       0 |             0 |      1709
+      400 |     +0.0% |       0 |       0 |             0 |      1699
+      410 |     +0.0% |       0 |       0 |             0 |      1689
+      420 |     +0.0% |       0 |       0 |             0 |      1679
+      430 |     +0.0% |       0 |       0 |             0 |      1669
+      440 |     +0.0% |       0 |       0 |             0 |      1659
+      450 |     +0.0% |       0 |       0 |             0 |      1649
+      460 |     +0.0% |       0 |       0 |             0 |      1639
+      470 |     +0.0% |       0 |       0 |             0 |      1629
+      480 |     +0.0% |       0 |       0 |             0 |      1619
+      490 |     +0.0% |       0 |       0 |             0 |      1609
+      500 |     +0.0% |       0 |       0 |             0 |      1599
+      510 |     +0.0% |       0 |       0 |             0 |      1589
+      520 |     +0.0% |       0 |       0 |             0 |      1579
+      530 |     +0.0% |       0 |       0 |             0 |      1569
+      540 |     +0.0% |       0 |       0 |             0 |      1559
+      550 |     +0.0% |       0 |       0 |             0 |      1549
+      560 |     +0.0% |       0 |       0 |             0 |      1539
+      570 |     +0.0% |       0 |       0 |             0 |      1529
+      580 |     +0.0% |       0 |       0 |             0 |      1519
+      590 |     +0.0% |       0 |       0 |             0 |      1509
+      600 |     +0.0% |       0 |       0 |             0 |      1499
+      610 |     +0.0% |       0 |       0 |             0 |      1489
+      620 |     +0.0% |       0 |       0 |             0 |      1479
+      630 |     +0.0% |       0 |       0 |             0 |      1469
+      640 |     +0.0% |       0 |       0 |             0 |      1459
+      650 |     +0.0% |       0 |       0 |             0 |      1449
+      660 |     +0.0% |       0 |       0 |             0 |      1439
+      670 |     +0.0% |       0 |       0 |             0 |      1429
+      680 |     +0.0% |       0 |       0 |             0 |      1419
+      690 |     +0.0% |       0 |       0 |             0 |      1409
+      700 |     +0.0% |       0 |       0 |             0 |      1399
+      710 |     +0.0% |       0 |       0 |             0 |      1389
+      720 |     +0.0% |       0 |       0 |             0 |      1379
+      730 |     +0.0% |       0 |       0 |             0 |      1369
+      740 |     +0.0% |       0 |       0 |             0 |      1359
+      750 |     +0.0% |       0 |       0 |             0 |      1349
+      760 |     +0.0% |       0 |       0 |             0 |      1339
+      770 |     +0.0% |       0 |       0 |             0 |      1329
+      780 |     +0.0% |       0 |       0 |             0 |      1319
+      790 |     +0.0% |       0 |       0 |             0 |      1309
+      800 |     +0.0% |       0 |       0 |             0 |      1299
+      810 |     +0.0% |       0 |       0 |             0 |      1289
+      820 |     +0.0% |       0 |       0 |             0 |      1279
+      830 |     +0.0% |       0 |       0 |             0 |      1269
+      840 |     +0.0% |       0 |       0 |             0 |      1259
+      850 |     +0.0% |       0 |       0 |             0 |      1249
+      860 |     +0.0% |       0 |       0 |             0 |      1239
+      870 |     +0.0% |       0 |       0 |             0 |      1229
+      880 |     +0.0% |       0 |       0 |             0 |      1219
+      890 |     +0.0% |       0 |       0 |             0 |      1209
+      900 |     +0.0% |       0 |       0 |             0 |      1199
+      910 |     +0.0% |       0 |       0 |             0 |      1189
+      920 |     +0.0% |       0 |       0 |             0 |      1179
+      930 |     +0.0% |       0 |       0 |             0 |      1169
+      940 |     +0.0% |       0 |       0 |             0 |      1159
+      950 |     +0.0% |       0 |       0 |             0 |      1149
+      960 |     +0.0% |       0 |       0 |             0 |      1139
+      970 |     +0.0% |       0 |       0 |             0 |      1129
+      980 |     +0.0% |       0 |       0 |             0 |      1119
+      990 |     +0.0% |       0 |       0 |             0 |      1109
+     1000 |     +0.0% |       0 |       0 |             0 |      1099
+     1010 |     +0.0% |       0 |       0 |             0 |      1089
+     1020 |     +0.0% |       0 |       0 |             0 |      1079
+     1030 |     +0.0% |       0 |       0 |             0 |      1069
+     1040 |     +0.0% |       0 |       0 |             0 |      1059
+     1050 |     +0.0% |       0 |       0 |             0 |      1049
+     1060 |     +0.0% |       0 |       0 |             0 |      1039
+     1070 |     +0.0% |       0 |       0 |             0 |      1029
+     1080 |     +0.0% |       0 |       0 |             0 |      1019
+     1090 |     +0.0% |       0 |       0 |             0 |      1009
+     1100 |     +0.0% |       0 |       0 |             0 |       999
+     1110 |     +0.0% |       0 |       0 |             0 |       989
+     1120 |     +0.0% |       0 |       0 |             0 |       979
+     1130 |     +0.0% |       0 |       0 |             0 |       969
+     1140 |     +0.0% |       0 |       0 |             0 |       959
+     1150 |     +0.0% |       0 |       0 |             0 |       949
+     1160 |     +0.0% |       0 |       0 |             0 |       939
+     1170 |     +0.0% |       0 |       0 |             0 |       929
+     1180 |     +0.0% |       0 |       0 |             0 |       919
+     1190 |     +0.0% |       0 |       0 |             0 |       909
+     1200 |     +0.0% |       0 |       0 |             0 |       899
+     1210 |     +0.0% |       0 |       0 |             0 |       889
+     1220 |     +0.0% |       0 |       0 |             0 |       879
+     1230 |     +0.0% |       0 |       0 |             0 |       869
+     1240 |     +0.0% |       0 |       0 |             0 |       859
+     1250 |     +0.0% |       0 |       0 |             0 |       849
+     1260 |     +0.0% |       0 |       0 |             0 |       839
+     1270 |     +0.0% |       0 |       0 |             0 |       829
+     1280 |     +0.0% |       0 |       0 |             0 |       819
+     1290 |     +0.0% |       0 |       0 |             0 |       809
+     1300 |     +0.0% |       0 |       0 |             0 |       799
+     1310 |     +0.0% |       0 |       0 |             0 |       789
+     1320 |     +0.0% |       0 |       0 |             0 |       779
+     1330 |     +0.0% |       0 |       0 |             0 |       769
+     1340 |     +0.0% |       0 |       0 |             0 |       759
+     1350 |     +0.0% |       0 |       0 |             0 |       749
+     1360 |     +0.0% |       0 |       0 |             0 |       739
+     1370 |     +0.0% |       0 |       0 |             0 |       729
+     1380 |     +0.0% |       0 |       0 |             0 |       719
+     1390 |     +0.0% |       0 |       0 |             0 |       709
+     1400 |     +0.0% |       0 |       0 |             0 |       699
+     1410 |     +0.0% |       0 |       0 |             0 |       689
+     1420 |     +0.0% |       0 |       0 |             0 |       679
+     1430 |     +0.0% |       0 |       0 |             0 |       669
+     1440 |     +0.0% |       0 |       0 |             0 |       659
+     1450 |     +0.0% |       0 |       0 |             0 |       649
+     1460 |     +0.0% |       0 |       0 |             0 |       639
+     1470 |     +0.0% |       0 |       0 |             0 |       629
+     1480 |     +0.0% |       0 |       0 |             0 |       619
+     1490 |     +0.0% |       0 |       0 |             0 |       609
+     1500 |     +0.0% |       0 |       0 |             0 |       599
+     1510 |     +0.0% |       0 |       0 |             0 |       589
+     1520 |     +0.0% |       0 |       0 |             0 |       579
+     1530 |     +0.0% |       0 |       0 |             0 |       569
+     1540 |     +0.0% |       0 |       0 |             0 |       559
+     1550 |     +0.0% |       0 |       0 |             0 |       549
+     1560 |     +0.0% |       0 |       0 |             0 |       539
+     1570 |     +0.0% |       0 |       0 |             0 |       529
+     1580 |     +0.0% |       0 |       0 |             0 |       519
+     1590 |     +0.0% |       0 |       0 |             0 |       509
+     1600 |     +0.0% |       0 |       0 |             0 |       499
+     1610 |     +0.0% |       0 |       0 |             0 |       489
+     1620 |     +0.0% |       0 |       0 |             0 |       479
+     1630 |     +0.0% |       0 |       0 |             0 |       469
+     1640 |     +0.0% |       0 |       0 |             0 |       459
+     1650 |     +0.0% |       0 |       0 |             0 |       449
+     1660 |     +0.0% |       0 |       0 |             0 |       439
+     1670 |     +0.0% |       0 |       0 |             0 |       429
+     1680 |     +0.0% |       0 |       0 |             0 |       419
+     1690 |     +0.0% |       0 |       0 |             0 |       409
+     1700 |     +0.0% |       0 |       0 |             0 |       399
+     1710 |     +0.0% |       0 |       0 |             0 |       389
+     1720 |     +0.0% |       0 |       0 |             0 |       379
+     1730 |     +0.0% |       0 |       0 |             0 |       369
+     1740 |     +0.0% |       0 |       0 |             0 |       359
+     1750 |     +0.0% |       0 |       0 |             0 |       349
+     1760 |     +0.0% |       0 |       0 |             0 |       339
+     1770 |     +0.0% |       0 |       0 |             0 |       329
+     1780 |     +0.0% |       0 |       0 |             0 |       319
+     1790 |     +0.0% |       0 |       0 |             0 |       309
+     1800 |     +0.0% |       0 |       0 |             0 |       299
+     1810 |     +0.0% |       0 |       0 |             0 |       289
+     1820 |     +0.0% |       0 |       0 |             0 |       279
+     1830 |     +0.0% |       0 |       0 |             0 |       269
+     1840 |     +0.0% |       0 |       0 |             0 |       259
+     1850 |     +0.0% |       0 |       0 |             0 |       249
+     1860 |     +0.0% |       0 |       0 |             0 |       239
+     1870 |     +0.0% |       0 |       0 |             0 |       229
+     1880 |     +0.0% |       0 |       0 |             0 |       219
+     1890 |     +0.0% |       0 |       0 |             0 |       209
+     1900 |     +0.0% |       0 |       0 |             0 |       199
+     1910 |     +0.0% |       0 |       0 |             0 |       189
+     1920 |     +0.0% |       0 |       0 |             0 |       179
+     1930 |     +0.0% |       0 |       0 |             0 |       169
+     1940 |     +0.0% |       0 |       0 |             0 |       159
+     1950 |     +0.0% |       0 |       0 |             0 |       149
+     1960 |     +0.0% |       0 |       0 |             0 |       139
+     1970 |     +0.0% |       0 |       0 |             0 |       129
+     1980 |     +0.0% |       0 |       0 |             0 |       119
+     1990 |     +0.0% |       0 |       0 |             0 |       109
+     2000 |     +0.0% |       0 |       0 |             0 |        99
+     2010 |     +0.0% |       0 |       0 |             0 |        89
+     2020 |     +0.0% |       0 |       0 |             0 |        79
+     2030 |     +0.0% |       0 |       0 |             0 |        69
+     2040 |     +0.0% |       0 |       0 |             0 |        59
+     2050 |     +0.0% |       0 |       0 |             0 |        49
+     2060 |     +0.0% |       0 |       0 |             0 |        39
+     2070 |     +0.0% |       0 |       0 |             0 |        29
+     2080 |     +0.0% |       0 |       0 |             0 |        19
+     2090 |     +0.0% |       0 |       0 |             0 |         9
+    final |     +0.0% |       0 |       0 |             0 |         0
+---------------------------------------------------------------------
+[INFO RSZ-0504] Runtime: 0.21s
+global_route -start_incremental
+detailed_placement
+[INFO DPL-0006] Core area: 40097.21 um^2
+[INFO DPL-0007] Movable instances area: 18905.63 um^2
+[INFO DPL-0008] Fixed instances area within core: 656.88 um^2
+[INFO DPL-0009] Utilization: 48.8%
+[INFO DPL-0005] Diamond search max displacement: +/- 500 sites horizontally, +/- 100 rows vertically.
+[INFO DPL-1102] Legalizing using negotiation legalizer.
+[INFO DPL-1103] Negotiation base search window: +/-20 sites horizontally, +/-5 rows vertically 
+	Automatic search window extension enabled.
+	Search window extendable up to the max displacement cap of +/-500 sites, +/-100 rows near walls.
+[INFO DPL-1104] NegotiationLegalizer DRC penalty: 5.
+[INFO DPL-0392] Negotiation cell height distribution (1 unique row-count(s)):
+[INFO DPL-0393]   height 1 row(s): 2180 cells
+[INFO DPL-0500] Runtime: 0.01s
+Detailed Placement Analysis
+---------------------------------
+legalizer            negotiation
+total moves                   0
+total displacement          0.0 u
+average displacement        0.0 u
+max displacement            0.0 u
+original HPWL           32014.8 u
+legalized HPWL          32014.8 u
+delta HPWL                    0 %
+
+global_route -end_incremental -congestion_report_file ./reports/sky130hd/mac_3stage/base/congestion_post_repair_design.rpt
+Repair setup and hold violations...
+estimate_parasitics -global_routing
+repair_timing -setup_margin 0 -hold_margin 0 -repair_tns 100 -verbose
+[INFO RSZ-0100] Repair move sequence: UnbufferMove SizeUpMove SwapPinsMove BufferMove CloneMove SplitLoadMove 
+[INFO RSZ-0094] Found 9 endpoints with setup violations.
+[INFO RSZ-0099] Repairing 9 out of 9 (100.00%) violating endpoints...
+   Iter   | Removed | Resized | Inserted | Cloned |  Pin  |   Area   |    WNS   |    TNS     |  Viol  |  Worst
+          | Buffers |  Gates  | Buffers  |  Gates | Swaps |          |          |            | Endpts | Endpoint
+------------------------------------------------------------------------------------------------------------------------------
+       0* |       0 |       0 |        0 |      0 |     0 |    +0.0% |   -0.360 |       -1.7 |      9 | product_stage2\[23\]$_DFFE_PN0P_/D
+      10* |       0 |       5 |        1 |      0 |     3 |    +0.2% |   -0.248 |       -1.3 |      9 | product_stage2\[31\]$_DFFE_PN0P_/D
+      20* |       0 |       8 |        2 |      0 |     9 |    +0.2% |   -0.208 |       -1.1 |      9 | product_stage2\[31\]$_DFFE_PN0P_/D
+      30* |       0 |      10 |        2 |      0 |    17 |    +0.3% |   -0.230 |       -1.2 |      9 | product_stage2\[31\]$_DFFE_PN0P_/D
+      40* |       0 |      14 |        2 |      0 |    23 |    +0.3% |   -0.259 |       -1.3 |      9 | product_stage2\[31\]$_DFFE_PN0P_/D
+      50* |       0 |      15 |        3 |      0 |    31 |    +0.4% |   -0.221 |       -1.4 |      9 | product_stage2\[31\]$_DFFE_PN0P_/D
+      60* |       0 |      21 |        3 |      0 |    35 |    +0.5% |   -0.210 |       -1.3 |      9 | product_stage2\[31\]$_DFFE_PN0P_/D
+      70* |       0 |      24 |        3 |      0 |    42 |    +0.5% |   -0.243 |       -1.4 |      9 | product_stage2\[31\]$_DFFE_PN0P_/D
+      79* |       0 |      20 |        3 |      0 |    34 |    +0.4% |   -0.193 |       -1.3 |      9 | product_stage2\[31\]$_DFFE_PN0P_/D
+      80* |       0 |      20 |        3 |      0 |    34 |    +0.4% |   -0.193 |       -1.3 |      9 | product_stage2\[31\]$_DFFE_PN0P_/D
+      90* |       0 |      27 |        4 |      0 |    36 |    +0.7% |   -0.190 |       -1.2 |      9 | product_stage2\[30\]$_DFFE_PN0P_/D
+      97* |       0 |      30 |        6 |      0 |    38 |    +0.8% |   -0.190 |       -1.2 |      9 | product_stage2\[30\]$_DFFE_PN0P_/D
+     100* |       0 |      30 |        6 |      0 |    40 |    +0.8% |   -0.190 |       -1.2 |      9 | product_stage2\[30\]$_DFFE_PN0P_/D
+     107* |       0 |      30 |        6 |      0 |    38 |    +0.8% |   -0.190 |       -1.2 |      9 | product_stage2\[30\]$_DFFE_PN0P_/D
+     110* |       0 |      31 |        6 |      0 |    39 |    +0.8% |   -0.229 |       -1.4 |      9 | product_stage2\[30\]$_DFFE_PN0P_/D
+     120* |       0 |      32 |        6 |      0 |    48 |    +0.9% |   -0.190 |       -1.0 |      9 | product_stage2\[30\]$_DFFE_PN0P_/D
+     128* |       0 |      31 |        6 |      0 |    41 |    +0.8% |   -0.176 |       -1.1 |      9 | product_stage2\[30\]$_DFFE_PN0P_/D
+     130* |       0 |      31 |        6 |      0 |    42 |    +0.8% |   -0.177 |       -1.1 |      9 | product_stage2\[30\]$_DFFE_PN0P_/D
+     140* |       0 |      35 |        7 |      0 |    47 |    +0.9% |   -0.221 |       -1.2 |      9 | product_stage2\[30\]$_DFFE_PN0P_/D
+     143* |       0 |      32 |        7 |      0 |    44 |    +0.9% |   -0.148 |       -0.9 |      9 | product_stage2\[31\]$_DFFE_PN0P_/D
+     150* |       0 |      37 |        7 |      0 |    45 |    +1.0% |   -0.154 |       -0.8 |      9 | product_stage2\[31\]$_DFFE_PN0P_/D
+     152* |       0 |      33 |        7 |      0 |    45 |    +0.9% |   -0.148 |       -0.9 |      9 | product_stage2\[31\]$_DFFE_PN0P_/D
+     153* |       0 |      33 |        7 |      0 |    45 |    +0.9% |   -0.148 |       -0.9 |      9 | product_stage2\[31\]$_DFFE_PN0P_/D
+     156* |       0 |      34 |        7 |      0 |    46 |    +0.9% |   -0.148 |       -0.7 |      9 | product_stage2\[31\]$_DFFE_PN0P_/D
+     157* |       0 |      34 |        7 |      0 |    46 |    +0.9% |   -0.148 |       -0.7 |      9 | product_stage2\[31\]$_DFFE_PN0P_/D
+     157* |       0 |      34 |        7 |      0 |    46 |    +0.9% |   -0.148 |       -0.7 |      9 | product_stage2\[31\]$_DFFE_PN0P_/D
+     158+ |       0 |      34 |        7 |      0 |    46 |    +0.9% |   -0.148 |       -0.7 |      6 | product_stage2\[31\]$_DFFE_PN0P_/D
+     160+ |       0 |      35 |        7 |      0 |    46 |    +1.0% |   -0.148 |       -0.7 |      6 | product_stage2\[31\]$_DFFE_PN0P_/D
+     160+ |       0 |      35 |        7 |      0 |    46 |    +1.0% |   -0.148 |       -0.7 |      6 | product_stage2\[31\]$_DFFE_PN0P_/D
+     161+ |       0 |      35 |        7 |      0 |    46 |    +1.0% |   -0.148 |       -0.7 |      6 | product_stage2\[31\]$_DFFE_PN0P_/D
+     166+ |       0 |      38 |        7 |      0 |    48 |    +1.0% |   -0.148 |       -0.6 |      6 | product_stage2\[31\]$_DFFE_PN0P_/D
+     167+ |       0 |      38 |        7 |      0 |    48 |    +1.0% |   -0.148 |       -0.6 |      6 | product_stage2\[31\]$_DFFE_PN0P_/D
+     168+ |       0 |      38 |        7 |      0 |    48 |    +1.0% |   -0.148 |       -0.6 |      6 | product_stage2\[31\]$_DFFE_PN0P_/D
+    final |       0 |      38 |        7 |      0 |    48 |    +1.0% |   -0.148 |       -0.6 |      5 | product_stage2\[31\]$_DFFE_PN0P_/D
+------------------------------------------------------------------------------------------------------------------------------
+[INFO RSZ-0040] Inserted 7 buffers.
+[INFO RSZ-0051] Resized 38 instances: 38 up, 0 up match, 0 down, 0 VT
+[INFO RSZ-0043] Swapped pins on 48 instances.
+[WARNING RSZ-0062] Unable to repair all setup violations.
+[INFO RSZ-0505] Runtime: 5.73s
+[INFO RSZ-0033] No hold violations found.
+[INFO RSZ-0506] Runtime: 0.01s
+Took 6 seconds: repair_timing -setup_margin 0 -hold_margin 0 -repair_tns 100 -verbose
+global_route -start_incremental
+detailed_placement
+[INFO DPL-0006] Core area: 40097.21 um^2
+[INFO DPL-0007] Movable instances area: 19097.07 um^2
+[INFO DPL-0008] Fixed instances area within core: 656.88 um^2
+[INFO DPL-0009] Utilization: 49.3%
+[INFO DPL-0005] Diamond search max displacement: +/- 500 sites horizontally, +/- 100 rows vertically.
+[INFO DPL-1102] Legalizing using negotiation legalizer.
+[INFO DPL-1103] Negotiation base search window: +/-20 sites horizontally, +/-5 rows vertically 
+	Automatic search window extension enabled.
+	Search window extendable up to the max displacement cap of +/-500 sites, +/-100 rows near walls.
+[INFO DPL-1104] NegotiationLegalizer DRC penalty: 5.
+[INFO DPL-0392] Negotiation cell height distribution (1 unique row-count(s)):
+[INFO DPL-0393]   height 1 row(s): 2187 cells
+          |      Total |  Illegal |  Illegal
+Iteration | Violations |    Cells |    Sites
+---------------------------------------------
+        0 |         64 |        18 |        46
+        1 |          0 |         0 |         0
+Negotiation phase 1 converged at iteration 1.
+[INFO DPL-0500] Runtime: 0.02s
+Detailed Placement Analysis
+---------------------------------
+legalizer            negotiation
+total moves                 470
+total displacement         81.3 u
+average displacement        0.0 u
+max displacement           13.7 u
+original HPWL           32125.1 u
+legalized HPWL          32216.1 u
+delta HPWL                    0 %
+
+check_placement -verbose
+global_route -end_incremental -congestion_report_file ./reports/sky130hd/mac_3stage/base/congestion_post_repair_timing.rpt
+estimate_parasitics -global_routing
+global_route -start_incremental
+global_route -end_incremental -congestion_report_file ./reports/sky130hd/mac_3stage/base/congestion_post_recover_power.rpt
+Repair antennas...
+[INFO GRT-0012] Found 0 antenna violations.
+[INFO ANT-0002] Found 0 net violations.
+[INFO ANT-0001] Found 0 pin violations.
+Estimate parasitics...
+estimate_parasitics -global_routing
+Report metrics stage 5, global route...
+
+==========================================================================
+global route report_design_area
+--------------------------------------------------------------------------
+Design area 19754 um^2 49% utilization.
+[INFO FLW-0007] clock core_clock period 5.984400
+[INFO FLW-0008] Clock core_clock period 5.863
+[INFO FLW-0009] Clock core_clock slack -0.187
+write_sdc -no_timestamp ./results/sky130hd/mac_3stage/base/updated_clks.sdc
+[INFO FLW-0011] Path endpoint path count 375
+write_db ./results/sky130hd/mac_3stage/base/5_1_grt.odb
+write_sdc -no_timestamp ./results/sky130hd/mac_3stage/base/5_1_grt.sdc
+Elapsed time: 0:23.86[h:]min:sec. CPU time: user 153.41 sys 1.77 (650%). Peak memory: 277696KB.
+Log                       Ext     Elapsed/s Peak Memory/MB sha1sum result [0:20)
+5_1_grt                   .odb           23            271 eedea86323aaee273b95
+5_1_grt                   .sdc                             3b59acaf31aaa2e1ce26

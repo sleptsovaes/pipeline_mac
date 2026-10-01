@@ -1,0 +1,79 @@
+OpenROAD unknown 
+Features included (+) or not (-): -GPU +GUI -Python
+This program is licensed under the BSD-3 license. See the LICENSE file for details.
+Components of this program may be licensed under more restrictive licenses which must be honored.
+[INFO ORD-0030] Using 16 thread(s).
+read_liberty /OpenROAD-flow-scripts/flow/platforms/sky130hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_db ./results/sky130hd/mac_3stage/base/6_1_fill.odb
+read_sdc ./results/sky130hd/mac_3stage/base/6_1_fill.sdc
+source /OpenROAD-flow-scripts/flow/platforms/sky130hd/setRC.tcl
+write_db ./results/sky130hd/mac_3stage/base/6_final.odb
+write_sdc -no_timestamp ./results/sky130hd/mac_3stage/base/6_final.sdc
+Deleted 0 routing obstructions
+Warning: master sky130_ef_sc_hd__decap_12 has signal pins but no liberty cell
+Warning: master sky130_ef_sc_hd__decap_12 has signal pins but no liberty cell
+Global output passed lec test
+[INFO RCX-0431] Defined process_corner X with ext_model_index 0
+[INFO RCX-0029] Defined extraction corner X
+[INFO RCX-0435] Reading extraction model file /OpenROAD-flow-scripts/flow/platforms/sky130hd/rcx_patterns.rules ...
+[INFO RCX-0436] RC segment generation mac_3stage (max_merge_res 50.0) ...
+[INFO RCX-0040] Final 5797 rc segments
+[INFO RCX-0439] Coupling Cap extraction mac_3stage ...
+[INFO RCX-0440] Coupling threshhold is 0.1000 fF, coupling capacitance less than 0.1000 fF will be grounded.
+[INFO RCX-0442] 55% of 10982 wires extracted
+[INFO RCX-0442] 100% of 10982 wires extracted
+[INFO RCX-0045] Extract 2091 nets, 7888 rsegs, 7888 caps, 10055 ccs
+[INFO RCX-0443] 2091 nets finished
+[INFO PSM-0040] All shapes on net VDD are connected.
+########## IR report #################
+Net              : VDD
+Corner           : default
+Total power      : 3.83e-02 W
+Supply voltage   : 1.80e+00 V
+Worstcase voltage: 1.80e+00 V
+Average voltage  : 1.80e+00 V
+Average IR drop  : 2.14e-04 V
+Worstcase IR drop: 3.54e-03 V
+Percentage drop  : 0.20 %
+######################################
+[INFO PSM-0040] All shapes on net VSS are connected.
+########## IR report #################
+Net              : VSS
+Corner           : default
+Total power      : 3.83e-02 W
+Supply voltage   : 0.00e+00 V
+Worstcase voltage: 3.64e-03 V
+Average voltage  : 1.93e-04 V
+Average IR drop  : 1.93e-04 V
+Worstcase IR drop: 3.64e-03 V
+Percentage drop  : 0.20 %
+######################################
+Cell type report:                       Count       Area
+  Fill cell                              3547   20343.26
+  Tap cell                                525     656.88
+  Clock buffer                             18     429.16
+  Timing Repair Buffer                    226    2013.18
+  Inverter                                 11      41.29
+  Clock inverter                           14     168.91
+  Sequential cell                         163    4098.93
+  Multi-Input combinational cell         1230   12345.59
+  Total                                  5734   40097.21
+Report metrics stage 6, finish...
+
+==========================================================================
+finish report_design_area
+--------------------------------------------------------------------------
+Design area 19754 um^2 49% utilization.
+[WARNING GUI-0010] File path does not end with a valid extension, new path is: ./reports/sky130hd/mac_3stage/base/final_all.webp.png
+[WARNING GUI-0010] File path does not end with a valid extension, new path is: ./reports/sky130hd/mac_3stage/base/final_routing.webp.png
+[WARNING GUI-0010] File path does not end with a valid extension, new path is: ./reports/sky130hd/mac_3stage/base/final_placement.webp.png
+[WARNING GUI-0010] File path does not end with a valid extension, new path is: ./reports/sky130hd/mac_3stage/base/final_ir_drop.webp.png
+[WARNING GUI-0010] File path does not end with a valid extension, new path is: ./reports/sky130hd/mac_3stage/base/final_clocks.webp.png
+[WARNING GUI-0010] File path does not end with a valid extension, new path is: ./reports/sky130hd/mac_3stage/base/cts_default_core_clock.webp.png
+[WARNING GUI-0010] File path does not end with a valid extension, new path is: ./reports/sky130hd/mac_3stage/base/cts_default_core_clock_layout.webp.png
+[WARNING GUI-0010] File path does not end with a valid extension, new path is: ./reports/sky130hd/mac_3stage/base/final_resizer.webp.png
+[WARNING GUI-0010] File path does not end with a valid extension, new path is: ./reports/sky130hd/mac_3stage/base/final_congestion.webp.png
+[WARNING GUI-0010] File path does not end with a valid extension, new path is: ./reports/sky130hd/mac_3stage/base/final_worst_path.webp.png
+Elapsed time: 0:05.85[h:]min:sec. CPU time: user 5.98 sys 1.16 (122%). Peak memory: 180352KB.
+Log                       Ext     Elapsed/s Peak Memory/MB sha1sum result [0:20)
+6_report                                  5            176                  N/A

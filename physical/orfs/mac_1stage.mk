@@ -1,0 +1,14 @@
+export PLATFORM = sky130hd
+
+export DESIGN_NAME = mac_1stage
+
+export VERILOG_FILES = $(MAC_REPO)/rtl/mac_1stage.sv
+
+export SDC_FILE = \
+    $(MAC_REPO)/physical/constraints/mac_5ns.sdc
+
+export CORE_UTILIZATION = 40
+
+export PLACE_DENSITY_LB_ADDON = 0.20
+
+export TNS_END_PERCENT = 100

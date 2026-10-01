@@ -1,0 +1,26 @@
+# Simulation
+simv
+*.vvp
+*.vcd
+
+# Build directories
+build/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+*~
+
+# OpenROAD intermediate work
+physical/work/
+physical/sweep_work/
+
+# Temporary files
+*.tmp
+*.log~

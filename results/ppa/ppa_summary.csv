@@ -1,0 +1,4 @@
+design,variant,latency_cycles,clock_period_ns,wns_ns,routed_slack_ns,tns_ns,area_um2,utilization_pct,sequential_cells,combinational_cells,sequential_area_um2,combinational_area_um2,power_w,estimated_fmax_mhz
+mac_1stage,1-stage,1,5.0,-0.635783,-0.821,-7.25897,15905.0,59.0,33.0,873.0,825.79,11085.63,0.0249,171.79178835251676
+mac_2stage,2-stage,2,5.0,-0.497365,-0.658,-6.0207,19203.0,55.0,98.0,1138.0,2452.35,12443.18,0.0234,176.74089784376105
+mac_3stage,3-stage,3,5.0,-0.907583,-1.128,-9.87032,20557.0,51.0,163.0,1230.0,4113.95,12582.07,0.0517,163.18537859007833

@@ -1,0 +1,8 @@
+VCD info: dumpfile results/pipelined_mac.vcd opened for output.
+
+        TEST PASSED
+Transactions generated : 1000
+Transactions accepted  : 1000
+Transactions received  : 1000
+
+tb/tb_mac_compare.sv:353: $finish called at 15435000 (1ps)
