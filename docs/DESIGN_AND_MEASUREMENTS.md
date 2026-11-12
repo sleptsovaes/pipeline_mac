@@ -21,9 +21,9 @@ A pending output must retain its value and validity while the consumer stalls.
 | [`mac_3stage`](../rtl/mac_3stage.sv) | Input registers, registered product/delayed `c`, then add | 3 cycles |
 
 The third variant adds input registers; it does not split the multiplier
-internally. This describes the RTL boundaries, not a proof that the multiplier
-is the worst post-route path in every implementation. Timing explanations
-must be checked against each selected implementation's STA paths.
+internally. The saved worst setup paths for the selected 2- and 3-stage implementations
+both traverse the multiplication stage. The [timing-path audit](TIMING_PATHS.md)
+records their actual endpoints, setup slack and interpretation limits.
 
 Elastic valid bits and ready propagation preserve transaction order. With no
 stalls, the peak input rate is one operation per cycle for every variant;
@@ -69,9 +69,11 @@ python3 verification/run_parameter_reset.py
 ```
 
 This finite matrix does not establish all possible parameter combinations or
-an unbounded protocol proof. The older `mac_2stage_old.sv` and `tb_pipelined_mac.sv` files
-are outside the active runner; their presence does not identify another
-measured variant.
+an unbounded protocol proof. The obsolete `mac_2stage_old.sv` and
+`tb_pipelined_mac.sv` were removed from the active checkout. Their previous
+versions remain in Git history at `eb072acb619ad6516686323eb540c733c9ce1154`.
+The active sources are the three numbered RTL variants and the two testbenches
+selected by `run_all.sh` and `run_parameter_reset.py`.
 
 ## Physical experiment
 
@@ -86,7 +88,7 @@ see the [200 MHz metrics](../results/ppa/ppa_summary.md).
 
 The [sweep script](../scripts/clock_sweep.py) changes the period, runs the flow,
 refines the observed passing/failing boundary and saves selected outputs.
-Its PASS criterion is final setup WNS >= 0. Intermediate global-route slack
+Its PASS criterion is worst setup slack >= 0. Intermediate global-route slack
 is a separate metric and must not be substituted for final setup slack.
 The selected `6_report.json` files also report zero hold TNS and zero hold
 violations; this is not a multi-corner signoff or measured silicon result.

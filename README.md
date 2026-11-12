@@ -9,7 +9,7 @@ its own `c`; the unit does not maintain a running sum across transactions.
 
 ## Recorded results
 
-| Variant | Unstalled latency | Best tested setup-passing period | Frequency | Final setup WNS | Cell area |
+| Variant | Unstalled latency | Best tested setup-passing period | Frequency | Worst setup slack | Cell area |
 |---|---:|---:|---:|---:|---:|
 | 1-stage | 1 cycle | 5.6250 ns | 177.78 MHz | +0.0870 ns | 15,272 µm² |
 | 2-stage | 2 cycles | 5.5781 ns | 179.27 MHz | +0.0484 ns | 18,086 µm² |
@@ -17,12 +17,17 @@ its own `c`; the unit does not maintain a running sum across transactions.
 
 These are separate place-and-route runs at each variant's selected period,
 not an exact Fmax measurement. All three failed the initial 200 MHz target.
-The sweep classifies setup timing using final WNS >= 0.
+The sweep classifies setup timing using worst setup slack >= 0.
 
 The 2-stage result is about **0.84% higher in frequency** and **18.4% larger
 in cell area** than the 1-stage result at their respective selected points.
 That small frequency difference is an observation from these runs; repeated
 physical runs were not used to establish a general advantage.
+
+The saved setup reports place the worst path in the multiplication stage of
+both deeper variants. The extra input stage does not partition that block.
+[Timing-path evidence](docs/TIMING_PATHS.md) separates these observations from
+causal claims about the frequency difference.
 
 All variants can accept one operation per cycle when the pipeline can advance.
 Backpressure increases transaction latency and can reduce throughput.
@@ -59,8 +64,6 @@ Cache and physical-runner regression checks run without Docker:
 ```bash
 python3 -m unittest discover -s verification -p 'test_reproducibility.py' -v
 ```
-The older `rtl/mac_2stage_old.sv` and `tb/tb_pipelined_mac.sv` are not used by
-this runner or the current physical configurations.
 
 ## Design and measurement guide
 

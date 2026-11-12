@@ -171,9 +171,9 @@ def collect_design(design, info):
     wns = find_json_value(
         report_json,
         exact_keys=[
-            "finish__timing__setup__wns",
             "finish__timing__setup__ws",
-            "finish__timing__setup__worst_slack"
+            "finish__timing__setup__worst_slack",
+            "finish__timing__setup__wns"
         ],
         contains=[
             "finish",
@@ -282,7 +282,7 @@ def write_markdown(rows, path):
     lines.append("# PPA Comparison")
     lines.append("")
     lines.append(
-        "| Variant | Latency | Period (ns) | WNS (ns) | "
+        "| Variant | Latency | Period (ns) | Worst setup slack (ns) | "
         "Route slack (ns) | TNS (ns) | Area (um²) | "
         "Util. (%) | Seq cells | Comb cells | Power (mW) | "
         "Est. Fmax (MHz) |"
@@ -328,7 +328,7 @@ def print_table(rows):
     header = (
         f"{'Variant':<12}"
         f"{'Period':>10}"
-        f"{'WNS':>10}"
+        f"{'SetupSlack':>10}"
         f"{'Route':>10}"
         f"{'TNS':>10}"
         f"{'Area':>12}"

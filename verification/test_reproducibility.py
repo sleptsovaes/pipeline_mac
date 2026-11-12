@@ -16,6 +16,7 @@ from unittest.mock import patch
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO / "scripts"))
 import clock_sweep as sweep
+import collect_ppa
 import physical_environment as environment
 
 
@@ -64,6 +65,19 @@ class PhysicalCacheTests(unittest.TestCase):
         with patch.object(sweep.subprocess, "run") as flow:
             self.assertTrue(self.run_point()["timing_met"])
             flow.assert_not_called()
+
+    def test_metrics_prefer_worst_slack_over_clipped_wns(self):
+        cases = [({"finish__timing__setup__wns": 0,
+                   "finish__timing__setup__ws": 0.0483724}, 0.0483724),
+                 ({"finish__timing__setup__wns": -0.125}, -0.125)]
+        for metrics, expected in cases:
+            with self.subTest(metrics=metrics):
+                with patch.object(sweep, "load_json", return_value=metrics):
+                    self.assertEqual(sweep.parse_metrics("mac_2stage", 6.0)["wns_ns"], expected)
+                with patch.object(collect_ppa, "load_json", return_value=metrics):
+                    with patch.object(collect_ppa, "RESULT_ROOT", self.root / "unused"):
+                        self.assertEqual(collect_ppa.collect_design("mac_2stage",
+                                         collect_ppa.DESIGNS["mac_2stage"])["wns_ns"], expected)
 
     def test_each_input_change_forces_flow(self):
         for name in ["rtl/mac_2stage.sv", "physical/orfs/mac_2stage_sweep.mk",

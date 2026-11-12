@@ -112,7 +112,7 @@ plt.xlabel(
 )
 
 plt.ylabel(
-    "Final WNS (ns)"
+    "Worst setup slack (ns)"
 )
 
 plt.title(

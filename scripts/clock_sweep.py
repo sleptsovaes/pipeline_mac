@@ -318,9 +318,9 @@ def parse_metrics(design, period):
     wns = json_metric(
         report_json,
         [
-            "finish__timing__setup__wns",
             "finish__timing__setup__ws",
             "finish__timing__setup__worst_slack",
+            "finish__timing__setup__wns",
         ]
     )
 
@@ -678,7 +678,7 @@ def run_point(
     )
 
     print(
-        f"WNS    : "
+        f"Setup slack: "
         f"{row['wns_ns']}"
     )
 
@@ -964,7 +964,7 @@ def save_summary(rows):
     lines = [
         "# Clock Sweep",
         "",
-        "| Variant | Period (ns) | Frequency (MHz) | WNS (ns) | TNS (ns) | Area (um²) | Power (mW) | Timing |",
+        "| Variant | Period (ns) | Frequency (MHz) | Worst setup slack (ns) | TNS (ns) | Area (um²) | Power (mW) | Timing |",
         "|---|---:|---:|---:|---:|---:|---:|---|",
     ]
 
@@ -1061,7 +1061,7 @@ def write_fmax_summary(best):
     lines = [
         "# Fmax Summary",
         "",
-        "| Variant | Best period (ns) | Fmax (MHz) | WNS (ns) | Area (um²) | Latency |",
+        "| Variant | Best period (ns) | Fmax (MHz) | Worst setup slack (ns) | Area (um²) | Latency |",
         "|---|---:|---:|---:|---:|---:|",
     ]
 
@@ -1217,7 +1217,7 @@ def main():
             f"{row['variant']:<8} "
             f"{row['period_ns']:.4f} ns  "
             f"{row['frequency_mhz']:.2f} MHz  "
-            f"WNS={row['wns_ns']:.4f} ns"
+            f"setup_slack={row['wns_ns']:.4f} ns"
         )
 
 
