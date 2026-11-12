@@ -103,27 +103,83 @@ Selected routing images:
 
 [2-stage worst-path image](../results/fmax/mac_2stage/final_worst_path.webp.png)
 
-## Physical rerun commands and current limitations
+## Physical rerun commands
 
-The following are the existing flow commands, run from the repository root.
-The physical runner, sweep and plotting scripts currently expect the clone
-at `~/pipelined-mac`. Docker and the ORFS image are required for physical runs;
-plotting additionally requires Python and Matplotlib.
+The commands below assume the repository root. The scripts locate the clone
+from their own paths, so they also work through absolute paths from another
+working directory, including a renamed directory containing spaces.
+Physical runs require Docker and Python 3; plotting additionally requires
+Matplotlib. The image reference and platform are pinned in
+[`physical/environment.json`](../physical/environment.json).
+
+Check the selected environment and input hashes without starting Docker:
+
+```bash
+python3 scripts/clock_sweep.py --check-inputs
+```
+
+Run the fixed-5 ns physical comparison and collect its metrics:
 
 ```bash
 bash physical/run_orfs.sh
 python3 scripts/collect_ppa.py
+```
+
+The fixed-constraint runner saves input hashes and the selected environment
+in `physical/work/run_manifest.json`, with tool version output in per-design
+`physical/work/logs/*.driver.log`. New summary tables go to `build/ppa/`.
+An input manifest records a selected run; only the subsequent flow logs and
+reports establish whether it completed.
+
+Run a new sweep and plot its results:
+
+```bash
 python3 scripts/clock_sweep.py
 python3 scripts/plot_sweep.py
 ```
 
-`run_orfs.sh` uses `openroad/orfs:latest`, which is mutable. Reproducible new
-measurements need a recorded image digest and tool revisions. This has not
-been repaired by the documentation change, and no new physical run is claimed.
-The sweep reuses cached JSON records without checking RTL/constraint/tool
-hashes. Use fresh result directories for a changed experiment; old cache hits
-are not new measurements. The sweep also rewrites `mac_sweep.sdc`.
+The default sweep directory is `build/clock_sweep/`. It contains per-point
+JSON records and flow logs, `run_manifest.json`, summary CSV/Markdown, a
+`work/` directory for ORFS, and confirmed selected implementations in `best/`.
+To keep a separate experiment, use `clock_sweep.py --output <directory>` and
+pass its CSV/output directory explicitly to `plot_sweep.py --input ... --output ...`.
 
-Portability fixes, cache provenance and a pinned environment should precede
-any new physical comparison. A follow-up experiment can then test whether an
-internal multiplier boundary improves the trade-off under controlled inputs.
+To plot the saved historical CSV without rerunning the physical flow:
+
+```bash
+python3 scripts/plot_sweep.py \
+  --input results/clock_sweep/clock_sweep.csv \
+  --output build/historical_plots
+```
+
+The default image was resolved from the official ORFS registry metadata on
+12 November 2026. This is a new environment selection, not a recovered digest
+for the historical MAC runs. An `ORFS_IMAGE` override must be an immutable
+`repository@sha256:<64 hex digits>` reference. The platform is fixed by the
+configuration; image changes invalidate cache records.
+
+## Cache validity and measurement status
+
+Each new point stores a provenance fingerprint covering all RTL sources,
+flow makefiles, physical scripts/configuration, selected image/platform and
+the exact generated SDC for that period. The generated SDC text is hashed
+instead of the previous point's mutable `mac_sweep.sdc` file. The sweep still
+rewrites that file when it starts a point.
+
+A cache hit requires matching provenance, design and period, a completed flow
+and consistent final setup metrics. Legacy records without provenance,
+malformed records and failed/incomplete flows are not reused. The summary
+loader applies the same checks, so old cached points cannot re-enter the
+result table through a different path. Input changes during a run prevent
+that result from being cached. `--force` bypasses a valid cache hit.
+
+Each selected passing point is rerun before its artifact snapshot is saved.
+The summary is then rebuilt from the post-confirmation records. If this rerun
+fails, its old selected snapshot/result is removed from the new output area.
+The original saved measurements in `results/` are not changed by this process.
+
+The cache tests simulate flow outcomes and input changes; they do not perform
+place and route. No new physical measurement or timing-closure result is
+claimed by this infrastructure update. Running the full flow with Docker is
+still needed to validate the newly pinned image on this design. Parameter
+sweeps, reset-in-flight coverage and repeated physical runs remain future work.

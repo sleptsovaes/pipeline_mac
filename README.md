@@ -46,6 +46,11 @@ backpressure. The scoreboard checks values and order; the testbench also
 checks output stability during stalls and enforces a timeout.
 
 Logs and waveforms are written under `results/logs/` and `results/waves/`.
+Cache and physical-runner regression checks run without Docker:
+
+```bash
+python3 -m unittest discover -s verification -p 'test_reproducibility.py' -v
+```
 The older `rtl/mac_2stage_old.sv` and `tb/tb_pipelined_mac.sv` are not used by
 this runner or the current physical configurations.
 
@@ -55,11 +60,15 @@ See [design, interface and physical methodology](docs/DESIGN_AND_MEASUREMENTS.md
 for pipeline boundaries, signed-width behavior, timing constraints, report
 provenance, physical-run commands and saved layout images.
 
-Physical reproduction still has known gaps: several scripts assume a clone
-at `~/pipelined-mac`, the flow uses the mutable `openroad/orfs:latest` image,
-and sweep caches are not tied to source hashes. These are not resolved by
-reformatting the reports. Do not reuse old cached metrics after changing RTL,
-constraints or tools.
+Physical scripts resolve the clone location from their own paths. New runs
+use the digest and platform pinned in [`physical/environment.json`](physical/environment.json).
+`ORFS_IMAGE` overrides must also use a full digest; mutable tags are rejected.
+
+Sweep caches check hashes of RTL, flow configs, scripts, generated constraints
+and the selected image/platform before reuse or summary inclusion. Legacy and
+incomplete records are excluded. New sweep outputs go to `build/clock_sweep/`;
+the saved historical reports under `results/` are preserved. The environment
+pin applies to new runs and is not retroactive evidence for those reports.
 
 The default-width RTL regression is not evidence of a complete parameter
 sweep or reset recovery with transactions in flight. Power values are flow

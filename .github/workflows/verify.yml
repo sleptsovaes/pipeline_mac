@@ -1,0 +1,20 @@
+name: Verify MAC
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  verification:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install simulator
+        run: sudo apt-get update && sudo apt-get install -y iverilog
+      - name: Python and shell checks
+        run: |
+          python3 -m compileall -q scripts verification
+          bash -n physical/run_orfs.sh verification/run_all.sh
+          python3 scripts/clock_sweep.py --check-inputs
+      - name: Physical cache and runner regressions
+        run: python3 -m unittest discover -s verification -p 'test_reproducibility.py' -v
+      - name: RTL with backpressure
+        run: bash verification/run_all.sh

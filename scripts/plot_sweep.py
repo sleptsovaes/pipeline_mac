@@ -1,25 +1,21 @@
 #!/usr/bin/env python3
 
+import argparse
 import csv
 from pathlib import Path
 
 import matplotlib.pyplot as plt
 
 
-ROOT = Path.home() / "pipelined-mac"
-
-CSV = (
-    ROOT
-    / "results"
-    / "clock_sweep"
-    / "clock_sweep.csv"
-)
-
-OUT = (
-    ROOT
-    / "results"
-    / "clock_sweep"
-)
+ROOT = Path(__file__).resolve().parents[1]
+parser = argparse.ArgumentParser(description="Plot a clock-sweep CSV without running physical tools")
+parser.add_argument("--input", type=Path, default=ROOT / "build/clock_sweep/clock_sweep.csv")
+parser.add_argument("--output", type=Path, default=ROOT / "build/clock_sweep")
+args = parser.parse_args()
+CSV = args.input.resolve()
+OUT = args.output.resolve()
+if not CSV.is_file():
+    parser.error(f"No sweep CSV at {CSV}; run the sweep or supply --input")
 
 OUT.mkdir(
     parents=True,
@@ -184,7 +180,7 @@ if best:
     )
 
     plt.ylabel(
-        "Maximum timing-closed frequency (MHz)"
+        "Highest tested setup-passing frequency (MHz)"
     )
 
     plt.title(

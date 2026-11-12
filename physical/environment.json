@@ -1,0 +1,7 @@
+{
+  "image": "openroad/orfs@sha256:688272c2cca337c25e98437ae0e2dc919f1bb659d8e488427c52d97ae903e507",
+  "platform": "linux/amd64",
+  "selected_on": "2026-11-12",
+  "registry_metadata": "https://hub.docker.com/v2/repositories/openroad/orfs/tags/latest",
+  "scope": "Pinned environment for new runs; not provenance for the saved historical measurements"
+}

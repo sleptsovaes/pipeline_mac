@@ -2,6 +2,9 @@
 
 set -euo pipefail
 
+REPO="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$REPO"
+
 mkdir -p build
 mkdir -p results
 mkdir -p results/logs

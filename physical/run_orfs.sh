@@ -2,8 +2,11 @@
 
 set -euo pipefail
 
-REPO="$HOME/pipelined-mac"
-IMAGE="openroad/orfs:latest"
+REPO="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+IMAGE="$(python3 "$REPO/scripts/physical_environment.py" --image)"
+PLATFORM="$(python3 "$REPO/scripts/physical_environment.py" --platform)"
+
+command -v docker >/dev/null || { echo "Docker is required for physical runs." >&2; exit 1; }
 
 WORK="$REPO/physical/work"
 
@@ -12,6 +15,8 @@ mkdir -p \
     "$WORK/reports" \
     "$WORK/logs" \
     "$WORK/objects"
+
+python3 "$REPO/scripts/physical_environment.py" --manifest "$WORK/run_manifest.json"
 
 run_design() {
 
@@ -22,7 +27,7 @@ run_design() {
     echo "Running ${DESIGN}..."
     echo "========================================"
 
-    docker run --rm \
+    docker run --rm --platform "$PLATFORM" \
         -v "$REPO:/work/pipelined-mac" \
         -v "$WORK/results:/OpenROAD-flow-scripts/flow/results" \
         -v "$WORK/reports:/OpenROAD-flow-scripts/flow/reports" \
@@ -35,6 +40,10 @@ run_design() {
             set -e
 
             cd /OpenROAD-flow-scripts/flow
+
+            git -C /OpenROAD-flow-scripts rev-parse HEAD || echo 'ORFS Git metadata unavailable in this pinned image'
+            /usr/local/bin/yosys -V
+            /OpenROAD-flow-scripts/tools/install/OpenROAD/bin/openroad -version
 
             echo
             echo '=== CLEAN ${DESIGN} ==='
@@ -53,7 +62,7 @@ run_design() {
                 YOSYS_EXE=/usr/local/bin/yosys \
                 OPENROAD_EXE=/OpenROAD-flow-scripts/tools/install/OpenROAD/bin/openroad
 
-        "
+        " | tee "$WORK/logs/${DESIGN}.driver.log"
 
     echo
     echo "SUCCESS: ${DESIGN}"

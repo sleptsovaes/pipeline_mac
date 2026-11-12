@@ -2,7 +2,9 @@
 
 import argparse
 import csv
+from datetime import datetime, timezone
 import json
+import math
 import re
 import shutil
 import subprocess
@@ -10,19 +12,18 @@ import sys
 from pathlib import Path
 
 
-ROOT = Path.home() / "pipelined-mac"
+from physical_environment import input_hashes, provenance, selected_environment, write_manifest
 
-IMAGE = "openroad/orfs:latest"
-
-SWEEP_WORK = ROOT / "physical" / "sweep_work"
+ROOT = Path(__file__).resolve().parents[1]
+OUTPUT_DIR = ROOT / "build" / "clock_sweep"
+SWEEP_WORK = OUTPUT_DIR / "work"
 
 RESULT_DIR = SWEEP_WORK / "results"
 REPORT_DIR = SWEEP_WORK / "reports"
 LOG_DIR = SWEEP_WORK / "logs"
 OBJECT_DIR = SWEEP_WORK / "objects"
 
-OUTPUT_DIR = ROOT / "results" / "clock_sweep"
-FMAX_DIR = ROOT / "results" / "fmax"
+FMAX_DIR = OUTPUT_DIR / "best"
 
 SDC_PATH = (
     ROOT
@@ -80,7 +81,7 @@ def ensure_dirs():
         )
 
 
-def write_sdc(period):
+def sdc_text(period):
 
     text = f"""set clk_name core_clock
 set clk_period {period:.4f}
@@ -134,17 +135,50 @@ set_false_path \\
     -from [get_ports rst_n]
 """
 
-    SDC_PATH.write_text(text)
+    return text
 
 
-def docker_command(design):
+def write_sdc(period):
+    SDC_PATH.write_text(sdc_text(period))
+
+
+def configure_output(path):
+    global OUTPUT_DIR, FMAX_DIR, SWEEP_WORK, RESULT_DIR, REPORT_DIR, LOG_DIR, OBJECT_DIR
+    OUTPUT_DIR = Path(path).resolve()
+    FMAX_DIR = OUTPUT_DIR / "best"
+    SWEEP_WORK = OUTPUT_DIR / "work"
+    RESULT_DIR = SWEEP_WORK / "results"
+    REPORT_DIR = SWEEP_WORK / "reports"
+    LOG_DIR = SWEEP_WORK / "logs"
+    OBJECT_DIR = SWEEP_WORK / "objects"
+
+
+def point_provenance(design, period):
+    return provenance(design, period, sdc_text(period), selected_environment(ROOT), ROOT)
+
+
+def reusable_record(row, design, period):
+    if not isinstance(row, dict) or row.get("design") != design or row.get("period_ns") != period:
+        return False
+    wns = row.get("wns_ns")
+    if (row.get("flow_completed") is not True or isinstance(wns, bool)
+            or not isinstance(wns, (int, float)) or not math.isfinite(wns)
+            or row.get("timing_met") is not (wns >= 0)):
+        return False
+    return row.get("provenance") == point_provenance(design, period)
+
+
+def docker_command(design, environment=None):
 
     config = DESIGNS[design]["config"]
+    environment = environment or selected_environment(ROOT)
 
     return [
         "docker",
         "run",
         "--rm",
+        "--platform",
+        environment["platform"],
 
         "-v",
         f"{ROOT}:/work/pipelined-mac",
@@ -164,7 +198,7 @@ def docker_command(design):
         "-e",
         "MAC_REPO=/work/pipelined-mac",
 
-        IMAGE,
+        environment["image"],
 
         "bash",
         "-lc",
@@ -173,6 +207,10 @@ def docker_command(design):
 set -e
 
 cd /OpenROAD-flow-scripts/flow
+
+git -C /OpenROAD-flow-scripts rev-parse HEAD || echo 'ORFS Git metadata unavailable in this pinned image'
+/usr/local/bin/yosys -V
+/OpenROAD-flow-scripts/tools/install/OpenROAD/bin/openroad -version
 
 env -u MAKEFLAGS make -j1 \\
     DESIGN_CONFIG=/work/pipelined-mac/physical/orfs/{config} \\
@@ -534,31 +572,18 @@ def run_point(
     force=False
 ):
 
-    result_json = (
-        OUTPUT_DIR
-        / design
-        / f"{period:.4f}ns.json"
-    )
-
-    result_json.parent.mkdir(
-        parents=True,
-        exist_ok=True
-    )
-
-
-    if (
-        result_json.exists()
-        and not force
-    ):
-
-        print(
-            f"[SKIP] {design} "
-            f"{period:.4f} ns"
-        )
-
-        return json.loads(
-            result_json.read_text()
-        )
+    period = round(period, 4)
+    if design not in DESIGNS or not math.isfinite(period) or period <= 0:
+        raise ValueError("Unknown design or invalid clock period")
+    expected_provenance = point_provenance(design, period)
+    result_json = OUTPUT_DIR / design / f"{period:.4f}ns.json"
+    result_json.parent.mkdir(parents=True, exist_ok=True)
+    if result_json.exists() and not force:
+        cached = load_json(result_json)
+        if reusable_record(cached, design, period):
+            print(f"[CACHE] {design} {period:.4f} ns: verified inputs")
+            return cached
+        print(f"[STALE] {design} {period:.4f} ns: recomputing")
 
 
     print()
@@ -578,14 +603,14 @@ def run_point(
     )
 
 
-    command = docker_command(
-        design
-    )
-
-
-    process = subprocess.run(
-        command
-    )
+    command = docker_command(design, expected_provenance["inputs"]["environment"])
+    flow_log = result_json.with_suffix(".flow.log")
+    with flow_log.open("w") as stream:
+        process = subprocess.run(command, stdout=stream, stderr=subprocess.STDOUT)
+    if point_provenance(design, period) != expected_provenance:
+        raise RuntimeError("Physical inputs changed during the run; result not cached")
+    if process.returncode:
+        print(f"Physical flow failed; inspect {flow_log}", file=sys.stderr)
 
 
     if process.returncode != 0:
@@ -628,6 +653,9 @@ def run_point(
         )
 
 
+    row["provenance"] = expected_provenance
+    row["executed_at_utc"] = datetime.now(timezone.utc).isoformat()
+    row["flow_log"] = str(flow_log.relative_to(OUTPUT_DIR))
     result_json.write_text(
         json.dumps(
             row,
@@ -685,6 +713,8 @@ def coarse_sweep(
                 force
             )
 
+            if not row.get("flow_completed") or row.get("wns_ns") is None:
+                raise RuntimeError(f"Incomplete physical run: {design} at {period:.4f} ns")
             rows.append(
                 row
             )
@@ -831,6 +861,8 @@ def refine_design(
             row
         )
 
+        if not row.get("flow_completed") or row.get("wns_ns") is None:
+            raise RuntimeError(f"Cannot refine from an incomplete physical run at {middle:.4f} ns")
 
         if row.get("timing_met"):
 
@@ -845,38 +877,16 @@ def refine_design(
 
 
 def all_saved_rows():
-
     rows = []
-
-
     for design in DESIGNS:
-
-        directory = (
-            OUTPUT_DIR
-            / design
-        )
-
-
-        if not directory.exists():
-            continue
-
-
-        for path in directory.glob(
-            "*.json"
-        ):
-
+        for path in (OUTPUT_DIR / design).glob("*ns.json"):
             try:
-
-                rows.append(
-                    json.loads(
-                        path.read_text()
-                    )
-                )
-
-            except Exception:
-                pass
-
-
+                period = float(path.name.removesuffix("ns.json"))
+            except ValueError:
+                continue
+            row = load_json(path)
+            if math.isfinite(period) and period > 0 and reusable_record(row, design, period):
+                rows.append(row)
     return rows
 
 
@@ -1104,10 +1114,23 @@ def main():
     )
 
 
+    parser.add_argument("--output", type=Path, default=OUTPUT_DIR,
+                        help="New results/cache/work/snapshots directory (default: build/clock_sweep)")
+    parser.add_argument("--check-inputs", action="store_true",
+                        help="Validate the image pin and list input hashes without running Docker")
     args = parser.parse_args()
-
-
+    if args.refine < 0:
+        parser.error("--refine must be nonnegative")
+    configure_output(args.output)
+    environment = selected_environment(ROOT)
+    if args.check_inputs:
+        print(json.dumps({"environment": environment, "files_sha256": input_hashes(ROOT),
+                          "output": str(OUTPUT_DIR)}, indent=2))
+        return
+    if not shutil.which("docker"):
+        parser.error("Docker is required for physical runs; --check-inputs works without it")
     ensure_dirs()
+    write_manifest(OUTPUT_DIR / "run_manifest.json", ROOT)
 
 
     print()
@@ -1142,47 +1165,22 @@ def main():
     rows = all_saved_rows()
 
 
-    csv_path, markdown_path = (
-        save_summary(
-            rows
-        )
-    )
-
-
     best = select_best(
         rows
     )
 
 
-    for design, row in best.items():
+    for design, row in list(best.items()):
+        refreshed = run_point(design, row["period_ns"], force=True)
+        if reusable_record(refreshed, design, row["period_ns"]) and refreshed["timing_met"]:
+            snapshot_best(design, refreshed)
+            best[design] = refreshed
+        else:
+            best.pop(design)
+            shutil.rmtree(FMAX_DIR / design, ignore_errors=True)
 
-        run_point(
-            design,
-            row["period_ns"],
-            force=True
-        )
-
-
-        refreshed = parse_metrics(
-            design,
-            row["period_ns"]
-        )
-
-
-        if refreshed[
-            "timing_met"
-        ]:
-
-            snapshot_best(
-                design,
-                refreshed
-            )
-
-
-            best[
-                design
-            ] = refreshed
-
+    # Include final confirmation runs rather than the pre-confirmation metrics.
+    csv_path, markdown_path = save_summary(all_saved_rows())
 
     fmax_summary = (
         write_fmax_summary(
@@ -1242,4 +1240,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except (OSError, ValueError, RuntimeError) as error:
+        print(f"Clock sweep failed: {error}", file=sys.stderr)
+        sys.exit(1)

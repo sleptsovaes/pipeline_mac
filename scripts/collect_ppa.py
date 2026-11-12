@@ -381,7 +381,7 @@ def main():
 
     print_table(rows)
 
-    output_dir = ROOT / "results" / "ppa"
+    output_dir = ROOT / "build" / "ppa"
 
     csv_path = output_dir / "ppa_summary.csv"
     md_path = output_dir / "ppa_summary.md"
