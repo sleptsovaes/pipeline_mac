@@ -33,7 +33,7 @@ Backpressure increases transaction latency and can reduce throughput.
 
 ## Run RTL verification
 
-From the repository root, with Icarus Verilog (`iverilog`, `vvp`) installed:
+From the repository root, with Python 3 and Icarus Verilog (`iverilog`, `vvp`) installed:
 
 ```bash
 bash verification/run_all.sh
@@ -44,6 +44,14 @@ The active runner compiles `rtl/mac_1stage.sv`, `rtl/mac_2stage.sv` and
 transactions with directed signed cases, random inputs and random downstream
 backpressure. The scoreboard checks values and order; the testbench also
 checks output stability during stalls and enforces a timeout.
+
+The same command also runs 33 parameter/reset simulations: all three variants
+at 11 width pairs, including product truncation, sign extension and 33-bit
+operands. Python integer goldens check fresh traffic after resets of a partially
+filled pipeline, a full stalled pipeline and flowing traffic. An empty repeated
+reset and two deliberate RTL fault injections check the test's sensitivity.
+[Recorded matrix and source hashes](verification/results/parameter_reset/results.md)
+describe the finite tested range.
 
 Logs and waveforms are written under `results/logs/` and `results/waves/`.
 Cache and physical-runner regression checks run without Docker:
@@ -70,7 +78,7 @@ incomplete records are excluded. New sweep outputs go to `build/clock_sweep/`;
 the saved historical reports under `results/` are preserved. The environment
 pin applies to new runs and is not retroactive evidence for those reports.
 
-The default-width RTL regression is not evidence of a complete parameter
-sweep or reset recovery with transactions in flight. Power values are flow
+The tested width/reset matrix is not an exhaustive parameter or formal proof.
+Power values are flow
 estimates without workload-derived switching activity and are not used to
 claim an energy improvement. No silicon or FPGA-board result is claimed.

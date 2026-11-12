@@ -39,9 +39,37 @@ signed cases, random data, valid gaps and random output backpressure.
 Accepted inputs enter a reference queue; consumed outputs are checked in
 order. The bench also checks stable stalled outputs and detects timeouts.
 
-The published regression uses `DATA_W=16`, `ACC_W=32`. Broader width coverage,
-reset with outstanding transactions and formal protocol verification remain
-separate tasks. The older `mac_2stage_old.sv` and `tb_pipelined_mac.sv` files
+The original 1000-transaction regression uses `DATA_W=16`, `ACC_W=32`.
+[`run_parameter_reset.py`](../verification/run_parameter_reset.py) additionally
+checks all three variants at these `(DATA_W, ACC_W)` pairs:
+`(1,1)`, `(2,3)`, `(4,4)`, `(4,8)`, `(4,12)`, `(8,16)`, `(8,24)`,
+`(16,16)`, `(16,32)`, `(16,40)` and `(33,66)`.
+
+Expected values use signed Python integers reduced modulo `2**ACC_W`, with
+hand-calculated oracle goldens, directed boundaries and 256 seeded random
+vectors per width pair. Wide operands and addends use all their bits rather
+than a 32-bit-only random source. Each of the 33 runs checks four reset
+scenarios: one pending operation, a full stalled pipeline with an unaccepted
+input, flowing traffic and a repeated empty reset. Three pulses occur entirely
+between rising edges, checking asynchronous cancellation; one reset spans two
+clock edges. Fresh traffic after reset must match the oracle, preserve order
+and hold output stable under randomized backpressure.
+
+The runner also compiles temporary faulty copies of the 2-stage RTL. Incorrect
+sign extension must produce an arithmetic mismatch; retaining a pending stage
+across reset must produce a stale-transaction failure. These copies stay under
+`build/parameter_reset/` and do not alter the design sources.
+The [recorded report](../verification/results/parameter_reset/results.md) and
+[JSON manifest](../verification/results/parameter_reset/results.json) include
+counts, source/vector hashes, tool versions and the seed. New runs write
+`build/parameter_reset/`; run the matrix alone with:
+
+```bash
+python3 verification/run_parameter_reset.py
+```
+
+This finite matrix does not establish all possible parameter combinations or
+an unbounded protocol proof. The older `mac_2stage_old.sv` and `tb_pipelined_mac.sv` files
 are outside the active runner; their presence does not identify another
 measured variant.
 
@@ -182,4 +210,5 @@ The cache tests simulate flow outcomes and input changes; they do not perform
 place and route. No new physical measurement or timing-closure result is
 claimed by this infrastructure update. Running the full flow with Docker is
 still needed to validate the newly pinned image on this design. Parameter
-sweeps, reset-in-flight coverage and repeated physical runs remain future work.
+combinations beyond the tested width matrix, formal protocol proofs and
+repeated physical runs remain future work.

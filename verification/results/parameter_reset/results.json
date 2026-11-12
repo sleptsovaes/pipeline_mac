@@ -1,0 +1,320 @@
+{
+  "executed_at_utc": "2026-11-12T21:58:14.548380+00:00",
+  "passed": true,
+  "seed": 12345,
+  "random_vectors_per_width": 256,
+  "source_sha256": {
+    "tb/tb_mac_parameter_reset.sv": "ad1d75e4778612267b3edc3b5a92b09e7ea76aabf5ec379c45cf946b3e6778ba",
+    "verification/run_parameter_reset.py": "213f9dc1205f502ede2354ee164c24df74ade2b23a3d6feba53e4dfef470d81b",
+    "rtl/mac_1stage.sv": "73b365905b78ef3956d4881132979b8f35862fe486d1dba0be71d23dc1e94ac7",
+    "rtl/mac_2stage.sv": "a1b3be6d5b7086b4e34c4f20cf544ba8ba9bd76cb7a868deef353c66977ed01f",
+    "rtl/mac_3stage.sv": "898f4e555eef48e1dd837dc5ff3c1a35422e80b6725554af558c5aa9d1bcd9be"
+  },
+  "tools": {
+    "iverilog": "Icarus Verilog version 12.0 (stable) ()",
+    "vvp": "Icarus Verilog runtime version 12.0 (stable) ()"
+  },
+  "runs": [
+    {
+      "data_w": 1,
+      "acc_w": 1,
+      "stages": 1,
+      "checked": 262,
+      "cancelled": 3,
+      "resets": 4,
+      "vectors_sha256": "f1a24e3a3dcafbc9de45968ba9d249f64036b552d178f4633e5be9b7ce7ffb73"
+    },
+    {
+      "data_w": 1,
+      "acc_w": 1,
+      "stages": 2,
+      "checked": 262,
+      "cancelled": 5,
+      "resets": 4,
+      "vectors_sha256": "f1a24e3a3dcafbc9de45968ba9d249f64036b552d178f4633e5be9b7ce7ffb73"
+    },
+    {
+      "data_w": 1,
+      "acc_w": 1,
+      "stages": 3,
+      "checked": 262,
+      "cancelled": 7,
+      "resets": 4,
+      "vectors_sha256": "f1a24e3a3dcafbc9de45968ba9d249f64036b552d178f4633e5be9b7ce7ffb73"
+    },
+    {
+      "data_w": 2,
+      "acc_w": 3,
+      "stages": 1,
+      "checked": 284,
+      "cancelled": 3,
+      "resets": 4,
+      "vectors_sha256": "e800e9c496fc0a26c67763a6670da5930e46a697c41dc2b3f09c61ea3d52d94a"
+    },
+    {
+      "data_w": 2,
+      "acc_w": 3,
+      "stages": 2,
+      "checked": 284,
+      "cancelled": 5,
+      "resets": 4,
+      "vectors_sha256": "e800e9c496fc0a26c67763a6670da5930e46a697c41dc2b3f09c61ea3d52d94a"
+    },
+    {
+      "data_w": 2,
+      "acc_w": 3,
+      "stages": 3,
+      "checked": 284,
+      "cancelled": 7,
+      "resets": 4,
+      "vectors_sha256": "e800e9c496fc0a26c67763a6670da5930e46a697c41dc2b3f09c61ea3d52d94a"
+    },
+    {
+      "data_w": 4,
+      "acc_w": 4,
+      "stages": 1,
+      "checked": 293,
+      "cancelled": 3,
+      "resets": 4,
+      "vectors_sha256": "aa14fb5b696f833c2779e6931601cedcd8f352081f1b3fed10c063d0604e7e72"
+    },
+    {
+      "data_w": 4,
+      "acc_w": 4,
+      "stages": 2,
+      "checked": 293,
+      "cancelled": 5,
+      "resets": 4,
+      "vectors_sha256": "aa14fb5b696f833c2779e6931601cedcd8f352081f1b3fed10c063d0604e7e72"
+    },
+    {
+      "data_w": 4,
+      "acc_w": 4,
+      "stages": 3,
+      "checked": 293,
+      "cancelled": 7,
+      "resets": 4,
+      "vectors_sha256": "aa14fb5b696f833c2779e6931601cedcd8f352081f1b3fed10c063d0604e7e72"
+    },
+    {
+      "data_w": 4,
+      "acc_w": 8,
+      "stages": 1,
+      "checked": 293,
+      "cancelled": 3,
+      "resets": 4,
+      "vectors_sha256": "938f1240b96f33c301097e2eee3e0370a3dd126243b96c3379bd5257d897a405"
+    },
+    {
+      "data_w": 4,
+      "acc_w": 8,
+      "stages": 2,
+      "checked": 293,
+      "cancelled": 5,
+      "resets": 4,
+      "vectors_sha256": "938f1240b96f33c301097e2eee3e0370a3dd126243b96c3379bd5257d897a405"
+    },
+    {
+      "data_w": 4,
+      "acc_w": 8,
+      "stages": 3,
+      "checked": 293,
+      "cancelled": 7,
+      "resets": 4,
+      "vectors_sha256": "938f1240b96f33c301097e2eee3e0370a3dd126243b96c3379bd5257d897a405"
+    },
+    {
+      "data_w": 4,
+      "acc_w": 12,
+      "stages": 1,
+      "checked": 293,
+      "cancelled": 3,
+      "resets": 4,
+      "vectors_sha256": "3d8982bce18b1505f83df71040ddf07b0d793a3a4259283fd0d336c81fae5785"
+    },
+    {
+      "data_w": 4,
+      "acc_w": 12,
+      "stages": 2,
+      "checked": 293,
+      "cancelled": 5,
+      "resets": 4,
+      "vectors_sha256": "3d8982bce18b1505f83df71040ddf07b0d793a3a4259283fd0d336c81fae5785"
+    },
+    {
+      "data_w": 4,
+      "acc_w": 12,
+      "stages": 3,
+      "checked": 293,
+      "cancelled": 7,
+      "resets": 4,
+      "vectors_sha256": "3d8982bce18b1505f83df71040ddf07b0d793a3a4259283fd0d336c81fae5785"
+    },
+    {
+      "data_w": 8,
+      "acc_w": 16,
+      "stages": 1,
+      "checked": 293,
+      "cancelled": 3,
+      "resets": 4,
+      "vectors_sha256": "21090580732d3567b5a0f4d178cb10bed61e1b8ad4daba2e31d7d62a9bf4f074"
+    },
+    {
+      "data_w": 8,
+      "acc_w": 16,
+      "stages": 2,
+      "checked": 293,
+      "cancelled": 5,
+      "resets": 4,
+      "vectors_sha256": "21090580732d3567b5a0f4d178cb10bed61e1b8ad4daba2e31d7d62a9bf4f074"
+    },
+    {
+      "data_w": 8,
+      "acc_w": 16,
+      "stages": 3,
+      "checked": 293,
+      "cancelled": 7,
+      "resets": 4,
+      "vectors_sha256": "21090580732d3567b5a0f4d178cb10bed61e1b8ad4daba2e31d7d62a9bf4f074"
+    },
+    {
+      "data_w": 8,
+      "acc_w": 24,
+      "stages": 1,
+      "checked": 293,
+      "cancelled": 3,
+      "resets": 4,
+      "vectors_sha256": "9a652780a0e1479f5b40c47f261f644c62a11956f6e671abc3580961709641ff"
+    },
+    {
+      "data_w": 8,
+      "acc_w": 24,
+      "stages": 2,
+      "checked": 293,
+      "cancelled": 5,
+      "resets": 4,
+      "vectors_sha256": "9a652780a0e1479f5b40c47f261f644c62a11956f6e671abc3580961709641ff"
+    },
+    {
+      "data_w": 8,
+      "acc_w": 24,
+      "stages": 3,
+      "checked": 293,
+      "cancelled": 7,
+      "resets": 4,
+      "vectors_sha256": "9a652780a0e1479f5b40c47f261f644c62a11956f6e671abc3580961709641ff"
+    },
+    {
+      "data_w": 16,
+      "acc_w": 16,
+      "stages": 1,
+      "checked": 293,
+      "cancelled": 3,
+      "resets": 4,
+      "vectors_sha256": "c3e98cb69d23d8a08a06df52eeaffa8c13fc0c3b2ae6ecceb01f4213567b4bb7"
+    },
+    {
+      "data_w": 16,
+      "acc_w": 16,
+      "stages": 2,
+      "checked": 293,
+      "cancelled": 5,
+      "resets": 4,
+      "vectors_sha256": "c3e98cb69d23d8a08a06df52eeaffa8c13fc0c3b2ae6ecceb01f4213567b4bb7"
+    },
+    {
+      "data_w": 16,
+      "acc_w": 16,
+      "stages": 3,
+      "checked": 293,
+      "cancelled": 7,
+      "resets": 4,
+      "vectors_sha256": "c3e98cb69d23d8a08a06df52eeaffa8c13fc0c3b2ae6ecceb01f4213567b4bb7"
+    },
+    {
+      "data_w": 16,
+      "acc_w": 32,
+      "stages": 1,
+      "checked": 293,
+      "cancelled": 3,
+      "resets": 4,
+      "vectors_sha256": "87641d93d9bc06f0f9702f8be2519839d46c12f03fd17fd51caa69f78233b211"
+    },
+    {
+      "data_w": 16,
+      "acc_w": 32,
+      "stages": 2,
+      "checked": 293,
+      "cancelled": 5,
+      "resets": 4,
+      "vectors_sha256": "87641d93d9bc06f0f9702f8be2519839d46c12f03fd17fd51caa69f78233b211"
+    },
+    {
+      "data_w": 16,
+      "acc_w": 32,
+      "stages": 3,
+      "checked": 293,
+      "cancelled": 7,
+      "resets": 4,
+      "vectors_sha256": "87641d93d9bc06f0f9702f8be2519839d46c12f03fd17fd51caa69f78233b211"
+    },
+    {
+      "data_w": 16,
+      "acc_w": 40,
+      "stages": 1,
+      "checked": 293,
+      "cancelled": 3,
+      "resets": 4,
+      "vectors_sha256": "35fcf353fb9cb4763c0912a649e36bd92c3cf5e4005b50bc9db41d443583a83b"
+    },
+    {
+      "data_w": 16,
+      "acc_w": 40,
+      "stages": 2,
+      "checked": 293,
+      "cancelled": 5,
+      "resets": 4,
+      "vectors_sha256": "35fcf353fb9cb4763c0912a649e36bd92c3cf5e4005b50bc9db41d443583a83b"
+    },
+    {
+      "data_w": 16,
+      "acc_w": 40,
+      "stages": 3,
+      "checked": 293,
+      "cancelled": 7,
+      "resets": 4,
+      "vectors_sha256": "35fcf353fb9cb4763c0912a649e36bd92c3cf5e4005b50bc9db41d443583a83b"
+    },
+    {
+      "data_w": 33,
+      "acc_w": 66,
+      "stages": 1,
+      "checked": 293,
+      "cancelled": 3,
+      "resets": 4,
+      "vectors_sha256": "3cc55380224a234c14ecf864b70d48bf660799ffb4f4f290ae8095e691539832"
+    },
+    {
+      "data_w": 33,
+      "acc_w": 66,
+      "stages": 2,
+      "checked": 293,
+      "cancelled": 5,
+      "resets": 4,
+      "vectors_sha256": "3cc55380224a234c14ecf864b70d48bf660799ffb4f4f290ae8095e691539832"
+    },
+    {
+      "data_w": 33,
+      "acc_w": 66,
+      "stages": 3,
+      "checked": 293,
+      "cancelled": 7,
+      "resets": 4,
+      "vectors_sha256": "3cc55380224a234c14ecf864b70d48bf660799ffb4f4f290ae8095e691539832"
+    }
+  ],
+  "fault_checks": [
+    "incorrect_sign_extension",
+    "retained_pending_stage_on_reset"
+  ]
+}

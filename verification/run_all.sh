@@ -55,5 +55,7 @@ run_test \
     "mac_3stage" \
     "rtl/mac_3stage.sv"
 
+python3 verification/run_parameter_reset.py
+
 echo
 echo "ALL REGRESSIONS PASSED"

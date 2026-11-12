@@ -16,5 +16,5 @@ jobs:
           python3 scripts/clock_sweep.py --check-inputs
       - name: Physical cache and runner regressions
         run: python3 -m unittest discover -s verification -p 'test_reproducibility.py' -v
-      - name: RTL with backpressure
+      - name: RTL signed widths, backpressure and reset
         run: bash verification/run_all.sh
